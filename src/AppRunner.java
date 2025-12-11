@@ -70,6 +70,10 @@ public class AppRunner {
         showActions(products);
         print(" h - Выйти");
         String action = fromConsole().substring(0, 1);
+        if ("h".equalsIgnoreCase(action)) {
+            isExit = true;
+            return;
+        }
         if ("a".equalsIgnoreCase(action)) {
             paymentReceiver.topUp();
             return;
@@ -83,12 +87,8 @@ public class AppRunner {
                 }
             }
         } catch (IllegalArgumentException e) {
-            if ("h".equalsIgnoreCase(action)) {
-                isExit = true;
-            } else {
-                print("Недопустимая буква. Попрбуйте еще раз.");
-                chooseAction(products);
-            }
+            print("Недопустимая буква. Попрбуйте еще раз.");
+            chooseAction(products);
         }
 
 
