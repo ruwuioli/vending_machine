@@ -1,0 +1,7 @@
+git config --global user.name "Bermet T."   - to set my name for all commits I make
+git checkout home_work_25                   - to move to a branch where I had to make all the changes
+git add                                     - to move files to staged area
+git commit -m ""                            - to commit with message
+git remote add origin                       - to link a remote repository
+git push                                    - to upload local repository changes to remote repository
+git log / q                                 - to see history of commits I made (wasn't really necessary, but I did it for practice)
