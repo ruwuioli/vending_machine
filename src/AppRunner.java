@@ -66,23 +66,29 @@ public class AppRunner {
     }
 
     private void chooseAction(UniversalArray<Product> products) {
+        print(" a - Пополнить баланс");
         showActions(products);
         print(" h - Выйти");
         String action = fromConsole().substring(0, 1);
+        if ("a".equalsIgnoreCase(action)) {
+            paymentReceiver.topUp();
+            return;
+        }
         try {
             for (int i = 0; i < products.size(); i++) {
                 if (products.get(i).getActionLetter().equals(ActionLetter.valueOf(action.toUpperCase()))) {
                     paymentReceiver.setAmount(paymentReceiver.getAmount() - products.get(i).getPrice());
                     print("Вы купили " + products.get(i).getName());
                     break;
-                } else if ("h".equalsIgnoreCase(action)) {
-                    isExit = true;
-                    break;
                 }
             }
         } catch (IllegalArgumentException e) {
-            print("Недопустимая буква. Попрбуйте еще раз.");
-            chooseAction(products);
+            if ("h".equalsIgnoreCase(action)) {
+                isExit = true;
+            } else {
+                 print("Недопустимая буква. Попробуйте еще раз.");
+                 chooseAction(products);
+            }
         }
 
 
