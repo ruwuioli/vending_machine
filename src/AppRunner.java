@@ -9,11 +9,11 @@ public class AppRunner {
 
     private final UniversalArray<Product> products = new UniversalArrayImpl<>();
 
-    private final CoinAcceptor coinAcceptor;
+    private final PaymentReceiver paymentReceiver;
 
     private static boolean isExit = false;
 
-    private AppRunner() {
+    private AppRunner(CoinAcceptor coinAcceptor) {
         products.addAll(new Product[]{
                 new Water(ActionLetter.B, 20),
                 new CocaCola(ActionLetter.C, 50),
@@ -22,11 +22,24 @@ public class AppRunner {
                 new Mars(ActionLetter.F, 80),
                 new Pistachios(ActionLetter.G, 130)
         });
-        coinAcceptor = new CoinAcceptor(100);
+        paymentReceiver = coinAcceptor;
     }
 
+    private AppRunner(BanknoteAcceptor banknoteAcceptor) {
+        products.addAll(new Product[]{
+                new Water(ActionLetter.B, 20),
+                new CocaCola(ActionLetter.C, 50),
+                new Soda(ActionLetter.D, 30),
+                new Snickers(ActionLetter.E, 80),
+                new Mars(ActionLetter.F, 80),
+                new Pistachios(ActionLetter.G, 130)
+        });
+        paymentReceiver = banknoteAcceptor;
+    }
+
+
     public static void run() {
-        AppRunner app = new AppRunner();
+        AppRunner app = new AppRunner(new CoinAcceptor(100));
         while (!isExit) {
             app.startSimulation();
         }
